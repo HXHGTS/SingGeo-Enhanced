@@ -1,4 +1,4 @@
-name: Compile sing-box Geosite win-update
+name: Compile sing-box Geosite and Geoip
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  compile-geosite-winupdate-srs:
+  compile-geosite-srs:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,7 +18,7 @@ jobs:
 
       - name: Install Necessary Tools
         run: |
-          sudo apt install -y curl jq wget sed coreutils git
+          sudo apt install -y curl wget git
 
       - name: Install sing-box
         run: |
@@ -33,9 +33,9 @@ jobs:
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          sudo mkdir -p geosite geoip
-          sudo chown -R $USER:$USER geosite geoip
-          sudo chmod -R 755 geosite geoip
+          mkdir -p geosite geoip
+          chown -R $USER:$USER geosite geoip
+          chmod -R 755 geosite geoip
 
       - name: Download db
         run: |
@@ -49,7 +49,7 @@ jobs:
 
       - name: Compile telegram Source
         run: |
-          sing-box rule-set compile --output geosite/geosite-winupdate.srs geosite-telegram.json
+          sing-box rule-set compile --output geosite/geosite-telegram.srs geosite-telegram.json
           sing-box rule-set compile --output geoip/geoip-telegram.srs geoip-telegram.json
 
       - name: Push Files
