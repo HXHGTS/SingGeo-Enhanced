@@ -39,8 +39,8 @@ jobs:
 
       - name: Download db
         run: |
-          wget -O geosite.db https://github.com/SagerNet/sing-geosite/releases/latest/download/geosite.db
-          wget -O geoip.db https://github.com/SagerNet/sing-geoip/releases/latest/download/geoip.db
+          wget -O geosite.db https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.db
+          wget -O geoip.db https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.db
 
       - name: Export telegram Json
         run: |
