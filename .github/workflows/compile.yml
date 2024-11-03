@@ -52,12 +52,30 @@ jobs:
           sing-box rule-set compile --output geosite/geosite-telegram.srs geosite-telegram.json
           sing-box rule-set compile --output geoip/geoip-telegram.srs geoip-telegram.json
 
+      - name: Export win-update Json
+        run: |
+          sing-box geosite -f geosite.db export win-update
+
+      - name: Compile win-update Source
+        run: |
+          sing-box rule-set compile --output geosite/geosite-win-update.srs geosite-win-update.json
+
+      - name: Export netflix Json
+        run: |
+          sing-box geosite -f geosite.db export netflix
+          sing-box geoip -f geoip.db export netflix
+
+      - name: Compile netflix Source
+        run: |
+          sing-box rule-set compile --output geosite/geosite-netflix.srs geosite-netflix.json
+          sing-box rule-set compile --output geoip/geoip-netflix.srs geoip-netflix.json
+
       - name: Push Files
         run: |
           echo "Force updating repository with local content..."
           git checkout -b Release
           git add geoip geosite
-          git commit -m "Update Windows Update srs"
+          git commit -m "Update srs files"
           git push --force origin Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
