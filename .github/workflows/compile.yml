@@ -62,10 +62,12 @@ jobs:
 
       - name: Export google Json
         run: |
+          sing-box geosite -f geosite.db export google
           sing-box geoip -f geoip.db export google
 
       - name: Compile google Source
         run: |
+          sing-box rule-set compile --output geosite/geosite-google.srs geosite-google.json
           sing-box rule-set compile --output geoip/geoip-google.srs geoip-google.json
 
       - name: Export win-update Json
