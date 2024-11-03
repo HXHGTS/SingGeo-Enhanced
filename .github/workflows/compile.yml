@@ -52,6 +52,14 @@ jobs:
           sing-box rule-set compile --output geosite/geosite-telegram.srs geosite-telegram.json
           sing-box rule-set compile --output geoip/geoip-telegram.srs geoip-telegram.json
 
+      - name: Export google-scholar Json
+        run: |
+          sing-box geosite -f geosite.db export google-scholar
+
+      - name: Compile google-scholar Source
+        run: |
+          sing-box rule-set compile --output geosite/geosite-google-scholar.srs geosite-google-scholar.json
+
       - name: Export win-update Json
         run: |
           sing-box geosite -f geosite.db export win-update
