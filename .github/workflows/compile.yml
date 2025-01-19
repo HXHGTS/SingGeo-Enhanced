@@ -94,10 +94,7 @@ jobs:
 
       - name: Download Adguard Filters
         run: |
-          curl -fsSL https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/master/BaseFilter/sections/adservers.txt > adguard.txt
-          curl -fsSL https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/master/ChineseFilter/sections/adservers.txt >> adguard.txt
-          curl -fsSL https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/master/JapaneseFilter/sections/adservers.txt >> adguard.txt
-          curl -fsSL https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/master/MobileFilter/sections/adservers.txt >> adguard.txt
+          curl -fsSL https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt > adguard.txt
 
       - name: Compile Adguard Source
         run: |
