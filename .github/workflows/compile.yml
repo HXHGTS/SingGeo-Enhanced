@@ -33,9 +33,9 @@ jobs:
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          mkdir -p geosite geoip
-          sudo chown -R $USER:$USER geosite geoip
-          sudo chmod -R 755 geosite geoip
+          mkdir -p geosite geoip adguard
+          sudo chown -R $USER:$USER geosite geoip adguard
+          sudo chmod -R 755 geosite geoip adguard
 
       - name: Download db
         run: |
@@ -88,11 +88,22 @@ jobs:
           sing-box rule-set compile --output geosite/geosite-netflix.srs geosite-netflix.json
           sing-box rule-set compile --output geoip/geoip-netflix.srs geoip-netflix.json
 
+      - name: Download Adguard Filters
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/master/BaseFilter/sections/adservers.txt > adguard.txt
+          curl -fsSL https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/master/ChineseFilter/sections/adservers.txt >> adguard.txt
+          curl -fsSL https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/master/JapaneseFilter/sections/adservers.txt >> adguard.txt
+          curl -fsSL https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/master/MobileFilter/sections/adservers.txt >> adguard.txt
+
+      - name: Compile Adguard Source
+        run: |
+          sing-box rule-set convert --type adguard --output adguard/adguard.srs adguard.txt
+
       - name: Push Files
         run: |
           echo "Force updating repository with local content..."
           git checkout -b Release
-          git add geoip geosite
+          git add geoip geosite adguard
           git commit -m "Update srs files"
           git push --force origin Release
         env:
@@ -124,6 +135,6 @@ jobs:
             echo "Release $TAG_NAME already exists, deleting it."
             gh release delete "$TAG_NAME" --yes
           fi
-          gh release create "$TAG_NAME" --title "$TAG_NAME" --notes "Auto-generated release for $TAG_NAME" geosite/*.srs geoip/*.srs
+          gh release create "$TAG_NAME" --title "$TAG_NAME" --notes "Auto-generated release for $TAG_NAME" geosite/*.srs geoip/*.srs adguard/*.srs
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
