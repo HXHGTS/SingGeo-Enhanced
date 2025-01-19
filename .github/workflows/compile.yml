@@ -88,6 +88,10 @@ jobs:
           sing-box rule-set compile --output geosite/geosite-netflix.srs geosite-netflix.json
           sing-box rule-set compile --output geoip/geoip-netflix.srs geoip-netflix.json
 
+      - name: Update sing-box
+        run: |
+          sudo apt-get install -y sing-box-beta
+
       - name: Download Adguard Filters
         run: |
           curl -fsSL https://raw.githubusercontent.com/AdguardTeam/AdguardFilters/master/BaseFilter/sections/adservers.txt > adguard.txt
