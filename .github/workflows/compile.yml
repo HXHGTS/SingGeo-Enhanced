@@ -94,7 +94,7 @@ jobs:
 
       - name: Download Adguard Filters
         run: |
-          curl -fsSL https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt > adguard.txt
+          curl -fsSL https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt | sed 's/||nstool.netease.com^//g' > adguard.txt
 
       - name: Compile Adguard Source
         run: |
