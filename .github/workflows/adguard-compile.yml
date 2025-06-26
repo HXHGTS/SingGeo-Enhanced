@@ -30,9 +30,9 @@ jobs:
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          mkdir -p geosite geoip adguard
-          sudo chown -R $USER:$USER geosite geoip adguard
-          sudo chmod -R 755 geosite geoip adguard
+          mkdir -p adguard
+          sudo chown -R $USER:$USER adguard
+          sudo chmod -R 755 adguard
 
       - name: Download Adguard Filters
         run: |
