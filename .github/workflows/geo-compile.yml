@@ -30,9 +30,9 @@ jobs:
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          mkdir -p geosite geoip adguard
-          sudo chown -R $USER:$USER geosite geoip adguard
-          sudo chmod -R 755 geosite geoip adguard
+          mkdir -p geosite geoip 
+          sudo chown -R $USER:$USER geosite geoip 
+          sudo chmod -R 755 geosite geoip 
 
       - name: Download db
         run: |
@@ -89,7 +89,7 @@ jobs:
         run: |
           echo "Force updating repository with local content..."
           git checkout -b Release
-          git add geoip geosite adguard
+          git add geoip geosite 
           git commit -m "Update srs files"
           git push --force origin Release
         env:
