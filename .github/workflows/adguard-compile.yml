@@ -1,12 +1,12 @@
-name: Compile sing-box Geosite and Geoip
+name: Compile sing-box Adgaurd Filters
 
 on:
   schedule:
-    - cron: '0 10 * * *'
+    - cron: '0 9 * * *'
   workflow_dispatch:
 
 jobs:
-  compile-geosite-srs:
+  compile-adguard-srs:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,7 +24,7 @@ jobs:
           echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/sagernet.asc] https://deb.sagernet.org/ * *" | \
           sudo tee /etc/apt/sources.list.d/sagernet.list > /dev/null
           sudo apt-get update
-          sudo apt-get install -y --allow-downgrades sing-box=1.8.14
+          sudo apt-get install -y sing-box-beta
 
       - name: Prepare Folders
         run: |
@@ -33,61 +33,6 @@ jobs:
           mkdir -p geosite geoip adguard
           sudo chown -R $USER:$USER geosite geoip adguard
           sudo chmod -R 755 geosite geoip adguard
-
-      - name: Download db
-        run: |
-          wget -O geosite.db https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.db
-          wget -O geoip.db https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.db
-
-      - name: Export telegram Json
-        run: |
-          sing-box geosite -f geosite.db export telegram
-          sing-box geoip -f geoip.db export telegram
-
-      - name: Compile telegram Source
-        run: |
-          sing-box rule-set compile --output geosite/geosite-telegram.srs geosite-telegram.json
-          sing-box rule-set compile --output geoip/geoip-telegram.srs geoip-telegram.json
-
-      - name: Export google-scholar Json
-        run: |
-          sing-box geosite -f geosite.db export google-scholar
-
-      - name: Compile google-scholar Source
-        run: |
-          sing-box rule-set compile --output geosite/geosite-google-scholar.srs geosite-google-scholar.json
-
-      - name: Export google Json
-        run: |
-          sing-box geosite -f geosite.db export google
-          sing-box geoip -f geoip.db export google
-
-      - name: Compile google Source
-        run: |
-          sing-box rule-set compile --output geosite/geosite-google.srs geosite-google.json
-          sing-box rule-set compile --output geoip/geoip-google.srs geoip-google.json
-
-      - name: Export win-update Json
-        run: |
-          sing-box geosite -f geosite.db export win-update
-
-      - name: Compile win-update Source
-        run: |
-          sing-box rule-set compile --output geosite/geosite-win-update.srs geosite-win-update.json
-
-      - name: Export netflix Json
-        run: |
-          sing-box geosite -f geosite.db export netflix
-          sing-box geoip -f geoip.db export netflix
-
-      - name: Compile netflix Source
-        run: |
-          sing-box rule-set compile --output geosite/geosite-netflix.srs geosite-netflix.json
-          sing-box rule-set compile --output geoip/geoip-netflix.srs geoip-netflix.json
-
-      - name: Update sing-box
-        run: |
-          sudo apt-get install -y sing-box-beta
 
       - name: Download Adguard Filters
         run: |
