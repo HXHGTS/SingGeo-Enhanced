@@ -46,7 +46,7 @@ jobs:
         run: |
           echo "Force updating repository with local content..."
           git checkout -b Release
-          git add geoip geosite adguard
+          git add adguard
           git commit -m "Update srs files"
           git push --force origin Release
         env:
