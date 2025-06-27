@@ -1,4 +1,4 @@
-name: Compile sing-box Geosite and Geoip
+name: Compile sing-box Adgaurd Filters
 
 on:
   schedule:
