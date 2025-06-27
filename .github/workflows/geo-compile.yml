@@ -86,10 +86,9 @@ jobs:
       - name: Push Files
         run: |
           echo "Force updating repository with local content..."
-          git checkout -b Release
           git add geoip geosite 
           git commit -m "Update srs files"
-          git push --force origin Release
+          git push --force origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         continue-on-error: true
