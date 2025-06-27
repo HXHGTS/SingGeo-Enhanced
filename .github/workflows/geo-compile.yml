@@ -30,9 +30,7 @@ jobs:
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          mkdir -p geosite geoip 
-          sudo chown -R $USER:$USER geosite geoip 
-          sudo chmod -R 755 geosite geoip 
+          mkdir -p geosite geoip
 
       - name: Download db
         run: |
