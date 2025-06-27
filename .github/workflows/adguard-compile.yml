@@ -44,10 +44,10 @@ jobs:
         run: |
           git checkout -b Release
           echo "Force updating repository with local content..."
-          git add adguard
+          git pull --rebase origin Release
+          git add adguard geosite geoip
           git commit -m "Update srs files"
-          # git push --force origin Release
-          git push origin Release
+          git push --force origin Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         continue-on-error: true
